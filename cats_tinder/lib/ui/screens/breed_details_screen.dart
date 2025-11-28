@@ -4,10 +4,7 @@ import '../../models/breed.dart';
 class BreedDetailsScreen extends StatelessWidget {
   final Breed breed;
 
-  const BreedDetailsScreen({
-    super.key,
-    required this.breed,
-  });
+  const BreedDetailsScreen({super.key, required this.breed});
 
   String? _buildImageUrl() {
     if (breed.referenceImageId == null) return null;
@@ -19,9 +16,7 @@ class BreedDetailsScreen extends StatelessWidget {
     final imageUrl = _buildImageUrl();
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(breed.name),
-      ),
+      appBar: AppBar(title: Text(breed.name)),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -38,9 +33,7 @@ class BreedDetailsScreen extends StatelessWidget {
                       fit: BoxFit.cover,
                       loadingBuilder: (context, child, loadingProgress) {
                         if (loadingProgress == null) return child;
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
+                        return const Center(child: CircularProgressIndicator());
                       },
                       errorBuilder: (context, error, stackTrace) {
                         return Container(
@@ -73,10 +66,7 @@ class BreedDetailsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               const Text(
                 'Описание',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 8),
               Text(
@@ -86,10 +76,7 @@ class BreedDetailsScreen extends StatelessWidget {
               const SizedBox(height: 16),
               const Text(
                 'Характеристики',
-                style: TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w600,
-                ),
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
               ),
               const SizedBox(height: 8),
               Wrap(

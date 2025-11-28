@@ -27,9 +27,7 @@ class MyApp extends StatelessWidget {
       ),
       cardTheme: CardThemeData(
         color: const Color(0xFF111827),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       ),
       bottomNavigationBarTheme: const BottomNavigationBarThemeData(
         backgroundColor: Color(0xFF020916),
@@ -38,12 +36,9 @@ class MyApp extends StatelessWidget {
         type: BottomNavigationBarType.fixed,
       ),
       textButtonTheme: TextButtonThemeData(
-        style: TextButton.styleFrom(
-          foregroundColor: Colors.white,
-        ),
+        style: TextButton.styleFrom(foregroundColor: Colors.white),
       ),
     );
-
 
     return MaterialApp(
       title: 'Cat Tinder',

@@ -14,10 +14,9 @@ class Cat {
 
   factory Cat.fromSearchJson(Map<String, dynamic> json) {
     final breeds = json['breeds'] as List<dynamic>?;
-    final breed =
-        (breeds != null && breeds.isNotEmpty)
-            ? breeds.first as Map<String, dynamic>
-            : null;
+    final breed = (breeds != null && breeds.isNotEmpty)
+        ? breeds.first as Map<String, dynamic>
+        : null;
 
     return Cat(
       id: json['id'] as String,

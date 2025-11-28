@@ -92,7 +92,6 @@ class _CatSwipeScreenState extends State<CatSwipeScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     final cat = _currentCat;
 
     return Column(
@@ -109,26 +108,24 @@ class _CatSwipeScreenState extends State<CatSwipeScreen> {
             child: _isLoading && cat == null
                 ? const Center(child: CircularProgressIndicator())
                 : cat == null
-                    ? const Center(child: Text('Котик не найден'))
-                    : Dismissible(
-                        key: ValueKey(cat.id),
-                        direction: DismissDirection.horizontal,
-                        onDismissed: (direction) {
-                          final liked =
-                              direction == DismissDirection.startToEnd;
-                          setState(() {
-                            _currentCat = null;
-                          });
-                          _loadRandomCat(incrementLikes: liked);
-                        },
-                        child: CatSwipeCard(
-                          cat: cat,
-                          onLike: () => _loadRandomCat(incrementLikes: true),
-                          onDislike: () =>
-                              _loadRandomCat(incrementLikes: false),
-                          onTap: _openCatDetails,
-                        ),
-                      ),
+                ? const Center(child: Text('Котик не найден'))
+                : Dismissible(
+                    key: ValueKey(cat.id),
+                    direction: DismissDirection.horizontal,
+                    onDismissed: (direction) {
+                      final liked = direction == DismissDirection.startToEnd;
+                      setState(() {
+                        _currentCat = null;
+                      });
+                      _loadRandomCat(incrementLikes: liked);
+                    },
+                    child: CatSwipeCard(
+                      cat: cat,
+                      onLike: () => _loadRandomCat(incrementLikes: true),
+                      onDislike: () => _loadRandomCat(incrementLikes: false),
+                      onTap: _openCatDetails,
+                    ),
+                  ),
           ),
         ),
       ],

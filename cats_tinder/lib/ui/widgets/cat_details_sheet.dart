@@ -4,10 +4,7 @@ import '../../models/cat.dart';
 class CatDetailsSheet extends StatelessWidget {
   final Cat cat;
 
-  const CatDetailsSheet({
-    super.key,
-    required this.cat,
-  });
+  const CatDetailsSheet({super.key, required this.cat});
 
   @override
   Widget build(BuildContext context) {
@@ -58,10 +55,7 @@ class CatDetailsSheet extends StatelessWidget {
             const SizedBox(height: 16),
             const Text(
               'Описание',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Text(
@@ -71,10 +65,7 @@ class CatDetailsSheet extends StatelessWidget {
             const SizedBox(height: 16),
             const Text(
               'Характеристики',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-              ),
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
             ),
             const SizedBox(height: 8),
             Wrap(

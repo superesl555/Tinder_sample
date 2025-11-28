@@ -60,7 +60,9 @@ class _BreedsListScreenState extends State<BreedsListScreen> {
 
         if (snapshot.hasError) {
           WidgetsBinding.instance.addPostFrameCallback((_) {
-            _showErrorDialog('Не удалось загрузить список пород.\n\nОшибка: ${snapshot.error}');
+            _showErrorDialog(
+              'Не удалось загрузить список пород.\n\nОшибка: ${snapshot.error}',
+            );
           });
           return const Center(child: Text('Ошибка загрузки пород'));
         }

@@ -9,13 +9,12 @@ class CatsApi {
   CatsApi({http.Client? client}) : _client = client ?? http.Client();
 
   static const _host = 'api.thecatapi.com';
-  static const String? _apiKey = 'live_HNY3ejUNb7SgUaR53bwU0pVU4vFO37UmLGpAht4Nb0CuyijkVNSRyhuIdkCRGrQV';
+  static const String _apiKey =
+      'live_HNY3ejUNb7SgUaR53bwU0pVU4vFO37UmLGpAht4Nb0CuyijkVNSRyhuIdkCRGrQV';
 
   Map<String, String> _headers() {
     final headers = <String, String>{};
-    if (_apiKey != null) {
-      headers['x-api-key'] = _apiKey!;
-    }
+    headers['x-api-key'] = _apiKey;
     return headers;
   }
 

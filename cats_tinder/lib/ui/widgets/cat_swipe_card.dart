@@ -22,9 +22,7 @@ class CatSwipeCard extends StatelessWidget {
       onTap: onTap,
       child: Card(
         elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         clipBehavior: Clip.antiAlias,
         child: Column(
           children: [
@@ -48,11 +46,7 @@ class CatSwipeCard extends StatelessWidget {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(
-                top: 12,
-                left: 16,
-                right: 16,
-              ),
+              padding: const EdgeInsets.only(top: 12, left: 16, right: 16),
               child: Text(
                 cat.name,
                 style: const TextStyle(

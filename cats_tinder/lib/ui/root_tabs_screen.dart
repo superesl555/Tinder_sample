@@ -12,10 +12,7 @@ class RootTabsScreen extends StatefulWidget {
 class _RootTabsScreenState extends State<RootTabsScreen> {
   int _currentIndex = 0;
 
-  final _pages = const [
-    CatSwipeScreen(),
-    BreedsListScreen(),
-  ];
+  final _pages = const [CatSwipeScreen(), BreedsListScreen()];
 
   Widget _buildTitle(BuildContext context) {
     if (_currentIndex == 0) {
@@ -34,17 +31,11 @@ class _RootTabsScreenState extends State<RootTabsScreen> {
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: _buildTitle(context),
-      ),
-      body: IndexedStack(
-        index: _currentIndex,
-        children: _pages,
-      ),
+      appBar: AppBar(title: _buildTitle(context)),
+      body: IndexedStack(index: _currentIndex, children: _pages),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         onTap: (index) {
@@ -53,14 +44,8 @@ class _RootTabsScreenState extends State<RootTabsScreen> {
           });
         },
         items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.pets),
-            label: 'Котики',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.list),
-            label: 'Породы',
-          ),
+          BottomNavigationBarItem(icon: Icon(Icons.pets), label: 'Котики'),
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Породы'),
         ],
       ),
     );
