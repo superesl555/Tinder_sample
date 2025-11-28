@@ -1,7 +1,6 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import '../../models/cat.dart';
+import '../../services/cats_api.dart';
 import '../widgets/cat_swipe_card.dart';
 import '../widgets/cat_details_sheet.dart';
 
@@ -13,52 +12,73 @@ class CatSwipeScreen extends StatefulWidget {
 }
 
 class _CatSwipeScreenState extends State<CatSwipeScreen> {
-  final _random = Random();
+  final _api = CatsApi();
 
-  final List<Cat> _cats = [
-    Cat(
-      id: '1',
-      name: 'British Shorthair',
-      imageUrl: 'https://placekitten.com/400/400',
-      description: 'Спокойный, плюшевый и очень уютный кот.',
-    ),
-    Cat(
-      id: '2',
-      name: 'Sphynx',
-      imageUrl: 'https://placekitten.com/401/400',
-      description: 'Лысый, но очень тёплый и общительный.',
-    ),
-    Cat(
-      id: '3',
-      name: 'Siamese',
-      imageUrl: 'https://placekitten.com/400/401',
-      description: 'Голосистый, умный и общительный кот.',
-    ),
-  ];
-
-  int _currentIndex = 0;
+  Cat? _currentCat;
+  bool _isLoading = false;
   int _likeCount = 0;
 
-  Cat get _currentCat => _cats[_currentIndex];
+  @override
+  void initState() {
+    super.initState();
+    _loadRandomCat();
+  }
 
-  void _goToNextCat({required bool liked}) {
+  Future<void> _loadRandomCat({bool incrementLikes = false}) async {
     setState(() {
-      if (liked) {
+      _isLoading = true;
+      if (incrementLikes) {
         _likeCount++;
       }
-
-      int nextIndex = _currentIndex;
-      if (_cats.length > 1) {
-        while (nextIndex == _currentIndex) {
-          nextIndex = _random.nextInt(_cats.length);
-        }
-      }
-      _currentIndex = nextIndex;
     });
+
+    try {
+      final cat = await _api.fetchRandomCat();
+      setState(() {
+        _currentCat = cat;
+      });
+    } catch (e) {
+      _showErrorDialog(
+        'Не удалось загрузить котика.\n\n'
+        'Ошибка: $e',
+      );
+    } finally {
+      if (mounted) {
+        setState(() {
+          _isLoading = false;
+        });
+      }
+    }
+  }
+
+  void _showErrorDialog(String message) {
+    showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Ошибка'),
+        content: Text(message),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+            child: const Text('OK'),
+          ),
+          TextButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              _loadRandomCat();
+            },
+            child: const Text('Повторить'),
+          ),
+        ],
+      ),
+    );
   }
 
   void _openCatDetails() {
     final cat = _currentCat;
+    if (cat == null) return;
 
     showModalBottomSheet(
       context: context,
@@ -70,10 +90,11 @@ class _CatSwipeScreenState extends State<CatSwipeScreen> {
     );
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+
+    final cat = _currentCat;
+
     return Column(
       children: [
         const SizedBox(height: 16),
@@ -85,12 +106,29 @@ class _CatSwipeScreenState extends State<CatSwipeScreen> {
         Expanded(
           child: Padding(
             padding: const EdgeInsets.all(16.0),
-            child: CatSwipeCard(
-              cat: _currentCat,
-              onLike: () => _goToNextCat(liked: true),
-              onDislike: () => _goToNextCat(liked: false),
-              onTap: _openCatDetails,
-            ),
+            child: _isLoading && cat == null
+                ? const Center(child: CircularProgressIndicator())
+                : cat == null
+                    ? const Center(child: Text('Котик не найден'))
+                    : Dismissible(
+                        key: ValueKey(cat.id),
+                        direction: DismissDirection.horizontal,
+                        onDismissed: (direction) {
+                          final liked =
+                              direction == DismissDirection.startToEnd;
+                          setState(() {
+                            _currentCat = null;
+                          });
+                          _loadRandomCat(incrementLikes: liked);
+                        },
+                        child: CatSwipeCard(
+                          cat: cat,
+                          onLike: () => _loadRandomCat(incrementLikes: true),
+                          onDislike: () =>
+                              _loadRandomCat(incrementLikes: false),
+                          onTap: _openCatDetails,
+                        ),
+                      ),
           ),
         ),
       ],

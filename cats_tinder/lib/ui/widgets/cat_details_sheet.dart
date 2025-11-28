@@ -25,7 +25,6 @@ class CatDetailsSheet extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // маленький "хэндл" сверху
             Center(
               child: Container(
                 width: 40,

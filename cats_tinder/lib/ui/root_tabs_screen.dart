@@ -17,11 +17,29 @@ class _RootTabsScreenState extends State<RootTabsScreen> {
     BreedsListScreen(),
   ];
 
+  Widget _buildTitle(BuildContext context) {
+    if (_currentIndex == 0) {
+      final screenWidth = MediaQuery.of(context).size.width;
+
+      return Align(
+        alignment: Alignment.centerLeft,
+        child: Image.asset(
+          'lib/img/logo_3.png',
+          height: screenWidth * 0.4,
+          width: screenWidth * 0.4,
+        ),
+      );
+    } else {
+      return const Text('Список пород');
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_currentIndex == 0 ? 'Котики' : 'Список пород'),
+        title: _buildTitle(context),
       ),
       body: IndexedStack(
         index: _currentIndex,
