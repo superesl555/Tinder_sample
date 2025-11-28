@@ -46,13 +46,20 @@
 ## 📱 Скриншоты интерфейса
 
 ### Главный экран
-![Home screen](screenshots/screen_main.jpg)
+<p>
+  <img src="screenshots/screen_main.jpg" height="450" width="260">
+</p>
 
 ### Список пород
-![Breeds list](screenshots/breeds_list.jpg)
+<p>
+  <img src="screenshots/breeds_list.jpg" height="450" width="260">
+</p>
 
 ### Детальное описание породы
-![Breed details](screenshots/description.jpg)
+<p>
+  <img src="screenshots/description.jpg" height="450" width="260">
+</p>
+
 
 ---
 
